@@ -35,15 +35,17 @@
 </svg>
 
 <script>
-// Convert touch to mouse event for mobile devices
+
+// set up web socket...
+
 window.onload = () => {
   var ws = new WebSocket('ws://' + location.host, 'protocolOne');
   ws.onmessage = evt => {
     setPos(evt.data);
-  };
-  
+  };  
 };
 
+// Convert touch to mouse event for mobile devices
 function touchHandler(event) {
   var touches = event.changedTouches,
        first = touches[0], type = "";
