@@ -36,6 +36,14 @@
 
 <script>
 // Convert touch to mouse event for mobile devices
+window.onload = () => {
+  var ws = new WebSocket('ws://' + location.host, 'protocolOne');
+  ws.onmessage = evt => {
+    setPos(evt.data);
+  };
+  
+};
+
 function touchHandler(event) {
   var touches = event.changedTouches,
        first = touches[0], type = "";
@@ -68,7 +76,10 @@ function setPos(p) {
   document.getElementById("label").textContent = pos;    
   // rotate the 'needle' around the middle of the SVG
   var a = (pos-50)*2.8;
-  document.getElementById("needle").setAttribute("transform","rotate("+a+" 250 250)");    
+  document.getElementById("needle").setAttribute("transform","rotate("+a+" 250 250)");
+  
+  // set to espurino that position has changed via websocket... 
+  ws.send(pos);
 }
 setPos(pos);
 
