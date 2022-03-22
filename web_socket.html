@@ -71,9 +71,10 @@ document.getElementById("dn").onmouseup = function(e) { setPos(pos-10); };
    
   var btn = document.getElementById('btn');
   led= document.getElementById("label");
-  s="test"+document.getElementById("label").textContent;
+  s="test "+document.getElementById("label").textContent;
   alert(s);
   alert("test");
+  ws.send(led.textContent);
   ws.onmessage = evt => {
     setPos(50);
   }; 
