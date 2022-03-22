@@ -75,9 +75,6 @@ document.getElementById("dn").onmouseup = function(e) { setPos(pos-10); ws.send(
   ws.onmessage = evt => {
     setPos(50);
   }; 
-  led.oninput = evt => {
-    alert("test");
-  };
 };
 
 // Convert touch to mouse event for mobile devices
