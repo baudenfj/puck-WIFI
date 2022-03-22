@@ -68,9 +68,8 @@ document.getElementById("up").onmousedown = function(e) { e.preventDefault(); th
 document.getElementById("dn").onmousedown = function(e) { e.preventDefault(); this.style.fill = "#00ff00"; };
 document.getElementById("up").onmouseup = function(e) { setPos(pos+10); ws.send(pos);};
 document.getElementById("dn").onmouseup = function(e) { setPos(pos-10); };
-   
-  var btn = document.getElementById('btn');
-  led= document.getElementById("label");
+
+  var led = document.getElementById("label");
   s="test "+document.getElementById("label").textContent;
   alert(s);
   alert("test");
@@ -126,6 +125,5 @@ function dragStart() {
 }
 
 </script>
-   <p>Button: <span id="btn">up</span></p>
 </body>
 </html>
