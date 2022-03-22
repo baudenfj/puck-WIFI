@@ -66,7 +66,7 @@ document.getElementById("ring").onmousedown = dragStart;
 document.getElementById("needle").onmousedown = dragStart;
 document.getElementById("up").onmousedown = function(e) { e.preventDefault(); this.style.fill = "#ff0000"; };
 document.getElementById("dn").onmousedown = function(e) { e.preventDefault(); this.style.fill = "#00ff00"; };
-document.getElementById("up").onmouseup = function(e) { setPos(pos+10); };
+document.getElementById("up").onmouseup = function(e) { setPos(pos+10); ws.send(pos);};
 document.getElementById("dn").onmouseup = function(e) { setPos(pos-10); };
    
   var btn = document.getElementById('btn');
