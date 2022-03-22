@@ -71,12 +71,12 @@ document.getElementById("dn").onmouseup = function(e) { setPos(pos-10); };
    
   var btn = document.getElementById('btn');
   led= document.getElementById("label");
-  ws.send(led.textContent);
   ws.send(document.getElementById("label").textContent);
   ws.onmessage = evt => {
     setPos(50);
   }; 
   led.onchange = evt => {
+    alert("test");
     ws.send(led.textContent);
   };
 };
