@@ -40,6 +40,35 @@
 
 window.onload = () => {
   var ws = new WebSocket('ws://' + location.host, 'protocolOne');
+   
+   document.addEventListener("touchstart", touchHandler, true);
+document.addEventListener("touchmove", touchHandler, true);
+document.addEventListener("touchend", touchHandler, true);
+document.addEventListener("touchcancel", touchHandler, true);
+
+   document.addEventListener("mousemove", function(e) {
+  if (dragging) {
+    e.preventDefault();
+    var svg = document.getElementById("svg");
+    // work out the angle from coordinates - note that the coordinates are in window pixels, not SVG pixels
+    var ang = Math.atan2(e.clientX-(svg.clientWidth/2),(svg.clientHeight/2)-e.clientY)*180/Math.PI;
+    // move to new location
+    setPos(Math.round((ang/2.8)+50));
+  }
+});
+document.addEventListener("mouseup", function(e) {
+  dragging = false;
+  document.getElementById("ring").style.fill = "#80e5ff";
+  document.getElementById("up").style.fill = "#d5f6ff";
+  document.getElementById("dn").style.fill = "#d5f6ff";
+});
+document.getElementById("ring").onmousedown = dragStart;
+document.getElementById("needle").onmousedown = dragStart;
+document.getElementById("up").onmousedown = function(e) { e.preventDefault(); this.style.fill = "#ff0000"; };
+document.getElementById("dn").onmousedown = function(e) { e.preventDefault(); this.style.fill = "#00ff00"; };
+document.getElementById("up").onmouseup = function(e) { setPos(pos+10); };
+document.getElementById("dn").onmouseup = function(e) { setPos(pos-10); };
+   
   var btn = document.getElementById('btn');
   ws.onmessage = evt => {
     btn.innerText = evt.data;
@@ -64,10 +93,7 @@ function touchHandler(event) {
   first.target.dispatchEvent(simulatedEvent);
   event.preventDefault();
 }
-document.addEventListener("touchstart", touchHandler, true);
-document.addEventListener("touchmove", touchHandler, true);
-document.addEventListener("touchend", touchHandler, true);
-document.addEventListener("touchcancel", touchHandler, true);
+
 
 // rotate needle to correct position
 var pos = 50;
@@ -82,7 +108,7 @@ function setPos(p) {
   document.getElementById("needle").setAttribute("transform","rotate("+a+" 250 250)");
   
   // set to espurino that position has changed via websocket... 
-  ws.send(pos);
+  ws.send("Test");
 }
 setPos(pos);
 
@@ -92,28 +118,7 @@ function dragStart() {
   dragging = true;
   document.getElementById("ring").style.fill = "#ff0000";
 }
-document.addEventListener("mousemove", function(e) {
-  if (dragging) {
-    e.preventDefault();
-    var svg = document.getElementById("svg");
-    // work out the angle from coordinates - note that the coordinates are in window pixels, not SVG pixels
-    var ang = Math.atan2(e.clientX-(svg.clientWidth/2),(svg.clientHeight/2)-e.clientY)*180/Math.PI;
-    // move to new location
-    setPos(Math.round((ang/2.8)+50));
-  }
-});
-document.addEventListener("mouseup", function(e) {
-  dragging = false;
-  document.getElementById("ring").style.fill = "#80e5ff";
-  document.getElementById("up").style.fill = "#d5f6ff";
-  document.getElementById("dn").style.fill = "#d5f6ff";
-});
-document.getElementById("ring").onmousedown = dragStart;
-document.getElementById("needle").onmousedown = dragStart;
-document.getElementById("up").onmousedown = function(e) { e.preventDefault(); this.style.fill = "#ff0000"; };
-document.getElementById("dn").onmousedown = function(e) { e.preventDefault(); this.style.fill = "#00ff00"; };
-document.getElementById("up").onmouseup = function(e) { setPos(pos+10); };
-document.getElementById("dn").onmouseup = function(e) { setPos(pos-10); };
+
 </script>
    <p>Button: <span id="btn">up</span></p>
 </body>
