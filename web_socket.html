@@ -54,6 +54,7 @@ document.addEventListener("touchcancel", touchHandler, true);
     var ang = Math.atan2(e.clientX-(svg.clientWidth/2),(svg.clientHeight/2)-e.clientY)*180/Math.PI;
     // move to new location
     setPos(Math.round((ang/2.8)+50));
+    ws.send(pos);
   }
 });
 document.addEventListener("mouseup", function(e) {
@@ -67,14 +68,14 @@ document.getElementById("needle").onmousedown = dragStart;
 document.getElementById("up").onmousedown = function(e) { e.preventDefault(); this.style.fill = "#ff0000"; };
 document.getElementById("dn").onmousedown = function(e) { e.preventDefault(); this.style.fill = "#00ff00"; };
 document.getElementById("up").onmouseup = function(e) { setPos(pos+10); ws.send(pos);};
-document.getElementById("dn").onmouseup = function(e) { setPos(pos-10); };
+document.getElementById("dn").onmouseup = function(e) { setPos(pos-10); ws.send(pos)};
 
   var led = document.getElementById("label");
   var s="test "+document.getElementById("label").textContent;
   ws.onmessage = evt => {
     setPos(50);
   }; 
-  led.onchange = evt => {
+  led.oninput = evt => {
     alert("test");
   };
 };
