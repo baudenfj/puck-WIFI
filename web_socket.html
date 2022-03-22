@@ -70,9 +70,13 @@ document.getElementById("up").onmouseup = function(e) { setPos(pos+10); };
 document.getElementById("dn").onmouseup = function(e) { setPos(pos-10); };
    
   var btn = document.getElementById('btn');
+  led= document.getElementById("label");
   ws.onmessage = evt => {
-    btn.innerText = evt.data;
-  };  
+    setPos(50);
+  }; 
+  led.onchange = evt => {
+    ws.send(led.textContent);
+  };
 };
 
 // Convert touch to mouse event for mobile devices
