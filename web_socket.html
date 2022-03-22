@@ -110,9 +110,6 @@ function setPos(p) {
   // rotate the 'needle' around the middle of the SVG
   var a = (pos-50)*2.8;
   document.getElementById("needle").setAttribute("transform","rotate("+a+" 250 250)");
-  
-  // set to espurino that position has changed via websocket... 
-  ws.send("Test");
 }
 setPos(pos);
 
