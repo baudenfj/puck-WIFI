@@ -70,7 +70,7 @@ document.getElementById("up").onmouseup = function(e) { setPos(pos+10); ws.send(
 document.getElementById("dn").onmouseup = function(e) { setPos(pos-10); };
 
   var led = document.getElementById("label");
-  s="test "+document.getElementById("label").textContent;
+  var s="test "+document.getElementById("label").textContent;
   alert(s);
   alert("test");
   ws.send(led.textContent);
