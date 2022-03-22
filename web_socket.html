@@ -40,8 +40,9 @@
 
 window.onload = () => {
   var ws = new WebSocket('ws://' + location.host, 'protocolOne');
+  var btn = document.getElementById('btn');
   ws.onmessage = evt => {
-    setPos(evt.data);
+    btn.innerText = evt.data;
   };  
 };
 
@@ -114,5 +115,6 @@ document.getElementById("dn").onmousedown = function(e) { e.preventDefault(); th
 document.getElementById("up").onmouseup = function(e) { setPos(pos+10); };
 document.getElementById("dn").onmouseup = function(e) { setPos(pos-10); };
 </script>
+   <p>Button: <span id="btn">up</span></p>
 </body>
 </html>
